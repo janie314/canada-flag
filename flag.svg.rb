@@ -1,4 +1,6 @@
-require "erb"
+# frozen_string_literal: true
+
+require 'erb'
 
 template = ERB.new <<~SVG
   <svg width="1920" height="960" xmlns="http://www.w3.org/2000/svg">
@@ -8,7 +10,7 @@ template = ERB.new <<~SVG
     <% points.each do |point| %>
     <circle r="13" cx="<%= point[0] + 960 %>" cy="<%= 480 - point[1] %>" fill="#ef3340" />
     <% end %>
-  </svg> 
+  </svg>
 SVG
 
-File.write(File.join(__dir__, "flag.svg"), template.result)
+File.write(File.join(__dir__, 'flag.svg'), template.result)

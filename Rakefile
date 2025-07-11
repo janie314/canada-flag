@@ -1,4 +1,3 @@
-require "standard/rake"
+# frozen_string_literal: true
 
-desc "format this repo"
-task fmt: :"standard:fix"
+require 'peppermint/rake'
