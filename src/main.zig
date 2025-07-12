@@ -29,8 +29,12 @@ pub fn main() !void {
         const deinit_status = gpa.deinit();
         if (deinit_status == .leak) @panic("TEST FAIL");
     }
-    const allocator = gpa.allocator();
-    const str = try std.fmt.allocPrint(allocator, "WHATTUP {d}", .{data.len});
-    _ = try file.write(str);
-    allocator.free(str);
+    const mem = gpa.allocator();
+    _ = try file.write("<svg width=\"1920\" height=\"960\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"480\" height=\"960\" x=\"0\" y=\"0\" fill=\"#ef3340\" /><rect width=\"960\" height=\"960\" x=\"480\" y=\"0\" fill=\"white\" /><rect width=\"480\" height=\"960\" x=\"1440\" y=\"0\" fill=\"#ef3340\" />");
+    for (data) |s| {
+        const str = try std.fmt.allocPrint(mem, "<circle r=\"13\" cx=\"{d}\" cy=\"{d}\" fill=\"blue\"/>", .{ 960 + s.p.x, 480 - s.p.y });
+        _ = try file.write(str);
+        mem.free(str);
+    }
+    _ = try file.write("</svg>");
 }
