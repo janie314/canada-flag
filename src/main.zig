@@ -30,11 +30,11 @@ pub fn main() !void {
         if (deinit_status == .leak) @panic("TEST FAIL");
     }
     const mem = gpa.allocator();
-    _ = try file.write("<svg width=\"1920\" height=\"960\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"480\" height=\"960\" x=\"0\" y=\"0\" fill=\"#ef3340\" /><rect width=\"960\" height=\"960\" x=\"480\" y=\"0\" fill=\"white\" /><rect width=\"480\" height=\"960\" x=\"1440\" y=\"0\" fill=\"#ef3340\" />");
+    _ = try file.write("<svg width=\"1920\" height=\"960\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"480\" height=\"960\" x=\"0\" y=\"0\" fill=\"#ef3340\" /><rect width=\"960\" height=\"960\" x=\"480\" y=\"0\" fill=\"white\" /><rect width=\"480\" height=\"960\" x=\"1440\" y=\"0\" fill=\"#ef3340\" /><path d=\"M 942 886");
     for (data) |s| {
-        const str = try std.fmt.allocPrint(mem, "<circle r=\"13\" cx=\"{d}\" cy=\"{d}\" fill=\"blue\"/>", .{ 960 + s.p.x, 480 - s.p.y });
+        const str = try std.fmt.allocPrint(mem, "L {d} {d} ", .{ 960 + s.q.x, 480 - s.q.y });
         _ = try file.write(str);
         mem.free(str);
     }
-    _ = try file.write("</svg>");
+    _ = try file.write("L 942 886\" fill=\"blue\"/></svg>");
 }
